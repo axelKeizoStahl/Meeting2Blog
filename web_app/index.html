@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio to Blog</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Audio to Blog Converter</h1>
+        <form id="uploadForm">
+            <label for="fileUpload">Upload Audio File (Supported formats: .tar)</label>
+            <input type="file" id="fileUpload" name="file" accept=".mp3,.wav">
+            <br>
+            <label for="urlInput">Or Enter URL:</label>
+            <input type="text" id="urlInput" name="url">
+            <br>
+            <button type="submit">Generate Blog Post</button>
+        </form>
+        <div id="result" class="result-container">
+            <!-- Display generated HTML content here -->
+        </div>
+        <button id="downloadButton">Download HTML</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

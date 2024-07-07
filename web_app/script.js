@@ -1,15 +1,28 @@
 document.getElementById('uploadForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
+    let uploadType = "post";
+    if (document.getElementById("query").checked) {
+        uploadType = "query";
+    }
     let formData = new FormData();
-    if (document.getElementById('urlInput').value != undefined) {
+    if (uploadType == "post" && document.getElementById('urlInput').value != undefined) {
         formData.append('url', document.getElementById('urlInput').value);
+    }
+    
+    if (uploadType == "query" && document.getElementById('urlInput').value != undefined) {
+        formData.append('urls', document.getElementById('urlInput').value);
     }
     if (document.getElementById('fileUpload').files[0] != undefined) {
         formData.append('file', document.getElementById('fileUpload').files[0]);
     }
 
-    fetch('http://localhost:8000/post', {
+    if (uploadType == "query") {
+        formData.append('prompt', document.getElementById('prompt').value);
+    }
+
+
+    fetch(`http://localhost:8000/${uploadType}`, {
         method: 'POST',
         body: formData
     })

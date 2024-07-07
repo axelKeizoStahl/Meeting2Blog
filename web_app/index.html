@@ -9,12 +9,21 @@
 <body>
     <div class="container">
         <h1>Audio to Blog Converter</h1>
+        <form id="uploadType">
+            <label for="post">Generate a post</label>
+            <input type="radio" id="post" name="post" value="post">
+            <label for="query">Generate a post off a query</label>
+            <input type="radio" id="query" name="query" value="query">
+            <br>
+        </form>
         <form id="uploadForm">
             <label for="fileUpload">Upload Audio File (Supported formats: .tar)</label>
             <input type="file" id="fileUpload" name="file" accept=".mp3,.wav">
             <br>
             <label for="urlInput">Or Enter URL:</label>
-            <input type="text" id="urlInput" name="url">
+            <input type="text" id="urlInput" name="urls">
+            <label for="prompt">Enter your prompt if querying:</label>
+            <input type="text" id="prompt" name="prompt">
             <br>
             <button type="submit">Generate Blog Post</button>
         </form>

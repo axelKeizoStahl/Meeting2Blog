@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 from response import content_to_html, extract_html
 from synthesize import summarize_audio, prompt_content
 from tarfile import TarFile
@@ -8,7 +9,6 @@ from typing import List
 
 
 app = FastAPI()
-
 
 
 def get_src(
@@ -27,7 +27,13 @@ def get_src(
     return sources
 
 
+@app.get("/")
+async def redirect_to_home():
+    return RedirectResponse(url="/home")
+
+
 app.mount("/home", StaticFiles(directory="../web_app", html=True), name="static")
+
 
 @app.post("/post")
 async def generate_post(
@@ -43,8 +49,7 @@ async def generate_post(
         response = {"html": html_content}
         return response
     except Exception as e:
-        #raise HTTPException(status_code=500, detail=str(e))
-        raise e
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/query")
 async def refine_post(

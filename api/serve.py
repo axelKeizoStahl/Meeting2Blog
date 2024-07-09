@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
+import logging
 from response import content_to_html, extract_html
 from synthesize import summarize_audio, prompt_content
 from tarfile import TarFile
@@ -9,6 +10,7 @@ from typing import List
 
 
 app = FastAPI()
+logger = logging.getLogger(__name__)
 
 
 def get_src(
@@ -49,6 +51,7 @@ async def generate_post(
         response = {"html": html_content}
         return response
     except Exception as e:
+        logger.error(e)
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/query")
@@ -70,5 +73,5 @@ async def refine_post(
 
         return {"html": html_content}
     except Exception as e:
+        logger.error(e)
         raise HTTPException(status_code=500, detail=str(e))
-

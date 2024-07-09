@@ -1,4 +1,5 @@
 from platogram import Content
+import markdownify
 
 
 def format_time(ms):
@@ -34,7 +35,7 @@ def content_to_html(content: Content) -> str:
 
     html += "</details>"
 
-    return html
+    return markdownify.markdownify(html, heading_style="ATX")
 
 
 def extract_html(content: str) -> str:

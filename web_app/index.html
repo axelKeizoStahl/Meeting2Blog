@@ -9,31 +9,34 @@
 <body>
     <div class="container">
         <h1>Audio to Blog Converter</h1>
-        <form id="uploadType">
-            <label for="post">Generate a post</label>
-            <input type="radio" id="post" name="post" value="post">
-            <label for="query">Generate a post off a query</label>
-            <input type="radio" id="query" name="query" value="query">
+            <button id="choose-source" onclick="showButtons()">Sources</button>
+            <div class="source">
+                <input type="file" id="fileUpload" hidden />
+                <label id="submitFile" class="hidden button" for="button2">File</label>
+                <button id="submitURL" class="hidden button" onclick="showUrlInput()">URL</button>
+                <input type="text" id="urlInput" name="urlInput" class="hidden">
+                <button id="submitPrompt" class="hidden button" onclick="showPrompt()">Prompt</button>
+                <input type="text" id="prompt" name="prompt" class="hidden">
+            </div>
             <br>
-        </form>
-        <form id="uploadForm">
-            <label for="fileUpload">Upload Audio File (Supported formats: .tar)</label>
-            <input type="file" id="fileUpload" name="file" accept=".mp3,.wav">
-            <br>
-            <label for="urlInput">Or Enter URL:</label>
-            <input type="text" id="urlInput" name="urls">
-            <label for="prompt">Enter your prompt if querying:</label>
-            <input type="text" id="prompt" name="prompt">
-            <br>
-            <button type="submit">Generate Blog Post</button>
-        </form>
+            <button type="submit" onclick="generatePost()">Generate Blog Post</button>
         <div id="result" class="result-container">
             <!-- Display generated HTML content here -->
+                <div id="loading" class="hidden"></div>
+            <md-block id="render-result">
+            </md-block>
         </div>
-        <button id="downloadButton">Download HTML</button>
+        <button id="downloadButton" onClick="downloadOptions()">Download HTML</button>
+        <div class="source">
+            <button id="asMarkdown" class="hidden button">Markdown</button>
+            <button id="asHTML" class="hidden button">HTML</button>
+            <button id="asPDF" class="hidden button">PDF</button>
+            <button id="asWord" class="hidden button">Word</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
+    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
 </body>
 </html>
 

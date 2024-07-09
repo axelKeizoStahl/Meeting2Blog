@@ -24,7 +24,33 @@ form {
 
 label {
     display: block;
-    margin-bottom: 5px;
+}
+
+.source {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+
+input[type="text"] {
+    width: 20%;
+    height: 35px;
+}
+
+.button {
+    font-size: 16px;
+    padding: 8px 12px;
+    width: 100px;
+    border-radius: 30px;
+    text-align: center;
+
+}
+
+.hidden {
+    display: none;
 }
 
 input[type="text"],
@@ -32,17 +58,17 @@ input[type="file"],
 button {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
     box-sizing: border-box;
 }
 
+.button,
 button {
     background-color: #007bff;
     color: #fff;
     border: none;
-    cursor: pointer;
 }
 
+.button:hover,
 button:hover {
     background-color: #0056b3;
 }
@@ -55,3 +81,20 @@ button:hover {
     overflow-y: auto;
 }
 
+#loading {
+    width: 2rem;
+    height: 2rem;
+    border: 5px solid #007bff;
+    border-top: 6px solid #0056b3;
+    border-radius: 100%;
+    margin: auto;
+    animation: spin 1s infinite linear;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

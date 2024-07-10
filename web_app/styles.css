@@ -1,9 +1,11 @@
+/* Reset and base styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     padding: 20px;
 }
 
+/* Container styles */
 .container {
     max-width: 600px;
     margin: 0 auto;
@@ -13,11 +15,13 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Heading styles */
 h1 {
     text-align: center;
     color: #333;
 }
 
+/* Form and input styles */
 form {
     margin-bottom: 20px;
 }
@@ -26,6 +30,7 @@ label {
     display: block;
 }
 
+/* Source selection styles */
 .source {
     display: flex;
     gap: 30px;
@@ -34,35 +39,23 @@ label {
     justify-content: center;
 }
 
-
-input[type="text"] {
-    width: 20%;
-    height: 35px;
-}
-
 .button {
-    font-size: 16px;
-    padding: 8px 12px;
     width: 100px;
     border-radius: 30px;
-    text-align: center;
-
 }
 
-.hidden {
-    display: none;
-}
-
-input[type="text"],
-input[type="file"],
 button {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
 }
 
+/* Button styles */
 .button,
 button {
+    font-size: 16px;
+    padding: 8px 12px;
+    text-align: center;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -73,6 +66,12 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* Hidden element style */
+.hidden {
+    display: none;
+}
+
+/* Result container styles */
 .result-container {
     margin-top: 20px;
     border: 1px solid #ddd;
@@ -81,6 +80,7 @@ button:hover {
     overflow-y: auto;
 }
 
+/* Loading animation */
 #loading {
     width: 2rem;
     height: 2rem;
@@ -90,6 +90,7 @@ button:hover {
     margin: auto;
     animation: spin 1s infinite linear;
 }
+
 @keyframes spin {
     from {
         transform: rotate(0deg);
@@ -98,3 +99,4 @@ button:hover {
         transform: rotate(360deg);
     }
 }
+

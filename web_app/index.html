@@ -9,25 +9,24 @@
 <body>
     <div class="container">
         <h1>Audio to Blog Converter</h1>
-            <button id="choose-source" onclick="showButtons()">Sources</button>
-            <div class="source">
+            <button id="choose-source" onclick="toggleChildren('source', ['prompt', 'urlInput'])">Sources</button>
+            <div class="source" id="source">
                 <input type="file" id="fileUpload" hidden />
-                <label id="submitFile" class="hidden button" for="button2">File</label>
-                <button id="submitURL" class="hidden button" onclick="showUrlInput()">URL</button>
-                <input type="text" id="urlInput" name="urlInput" class="hidden">
-                <button id="submitPrompt" class="hidden button" onclick="showPrompt()">Prompt</button>
-                <input type="text" id="prompt" name="prompt" class="hidden">
+                <label id="submitFile" class="hidden button" for="fileUpload">File</label>
+                <button id="submitURL" class="hidden button" onclick="toggleChildren('source', ['submitFile', 'submitURL', 'submitPrompt', 'prompt'])">URL</button>
+                <input type="text" value="" id="urlInput" name="urlInput" class="hidden">
+                <button id="submitPrompt" class="hidden button" onclick="toggleChildren('source', ['submitFile', 'submitURL', 'submitPrompt', 'urlInput'])">Prompt</button>
+                <input type="text" value="" id="prompt" name="prompt" class="hidden">
             </div>
             <br>
             <button type="submit" onclick="generatePost()">Generate Blog Post</button>
         <div id="result" class="result-container">
-            <!-- Display generated HTML content here -->
                 <div id="loading" class="hidden"></div>
             <md-block id="render-result">
             </md-block>
         </div>
-        <button id="downloadButton" onClick="downloadOptions()">Download HTML</button>
-        <div class="source">
+        <button id="downloadButton" onClick="toggleChildren('downloads', [])" class="hidden">Download HTML</button>
+        <div id="downloads" class="source">
             <button id="asMarkdown" class="hidden button">Markdown</button>
             <button id="asHTML" class="hidden button">HTML</button>
             <button id="asPDF" class="hidden button">PDF</button>

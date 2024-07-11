@@ -1,5 +1,5 @@
 from platogram import Content
-import markdownify
+from pypandoc import convert_text
 
 
 def format_time(ms):
@@ -35,7 +35,7 @@ def content_to_html(content: Content) -> str:
 
     html += "</details>"
 
-    return markdownify.markdownify(html, heading_style="ATX")
+    return html
 
 
 def extract_html(content: str) -> str:
@@ -45,3 +45,9 @@ def extract_html(content: str) -> str:
         return content
     else:
         return content[start:end]
+
+
+def HTML_to_format(content: str, format_type: str, dest_dir: str) -> str:
+    dest_file = f"{dest_dir}/result.{format_type}"
+    output = convert_text(content, format_type, type="html", outputfile=dest_file)
+    return dest_file

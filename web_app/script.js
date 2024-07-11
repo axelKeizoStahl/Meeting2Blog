@@ -48,12 +48,14 @@ function generatePost() {
     .then(response => response.json())
     .then(data => {
         toggleElement("loading");
-        document.getElementById('render-result').mdContent = data.html;
+        console.log(data)
+        console.log(data.markdown)
+        document.getElementById('render-result').mdContent = data.markdown;
 
         toggleElement("downloadButton");
         const downloadButton = document.getElementById('downloadButton');
         downloadButton.addEventListener('click', function() {
-            downloadHTML(data.html);
+            downloadHTML(data.markdown);
         });
     })
     .catch(error => {
@@ -72,7 +74,7 @@ function convertMD(content, destType) {
     }
    return content;
 }
-function downloadHTML(markdownContent) {
+function downloadHTML() {
     const blob = new Blob([markdownContent], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
 

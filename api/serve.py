@@ -1,11 +1,11 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 import logging
-from response import content_to_html, extract_html
+from response import content_to_html, extract_html, HTML_to_format
 from synthesize import summarize_audio, prompt_content
 from tarfile import TarFile
-from tempfile import SpooledTemporaryFile
+from tempfile import TemporaryDirectory, SpooledTemporaryFile
 from typing import List
 
 
@@ -39,7 +39,9 @@ app.mount("/home", StaticFiles(directory="../web_app", html=True), name="static"
 
 @app.post("/post")
 async def generate_post(
-    url: str | None = Form(None), file: UploadFile | None = File(None)
+    url: str | None = Form(None),
+    file: UploadFile | None = File(None),
+    prompt: str | None = Form(None)
 ) -> dict:
     try:
         src = get_src(url, file)[0]
@@ -49,29 +51,24 @@ async def generate_post(
         html_content = content_to_html(content)
 
         response = {"html": html_content}
+        if prompt is not None:
+            response = await prompt_content(content, prompt)
+
+            prompt = f"return only html to acuratelly represent a blog post on the following text:\n{response}"
+            response = await prompt_content(content, prompt)
+
+            response = extract_html(response)
         return response
     except Exception as e:
         logger.error(e)
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/query")
-async def refine_post(
-    urls: str | None = Form(None),
-    file: UploadFile | None = File(None),
-    prompt: str = Form(...),
-) -> dict:
+@app.post("/post/convertHTML")
+async def convert_HTML(content: str, dest_type: str) -> FileResponse:
     try:
-        sources = get_src(urls, file)
-        content = [await summarize_audio(src) for src in sources]
-
-        response = await prompt_content(content, prompt)
-
-        prompt = f"return only html code to acuratelly represent a blog post on the following text:\n{response}"
-        response = await prompt_content(content, prompt)
-
-        html_content = extract_html(response)
-
-        return {"html": html_content}
+        with TemporaryDirectory as temp_dir:
+            converted_result = HTML_to_format(content, dest_type, str(temp_dir))
+            return FileResponse(converted_result)
     except Exception as e:
         logger.error(e)
         raise HTTPException(status_code=500, detail=str(e))

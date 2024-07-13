@@ -1,6 +1,6 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form, FileResponse
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, StreamingResponse
 import logging
 from response import content_to_html, extract_html, HTML_to_format
 from synthesize import summarize_audio, prompt_content
@@ -34,7 +34,7 @@ async def redirect_to_home():
     return RedirectResponse(url="/home")
 
 
-app.mount("/home", StaticFiles(directory="../web_app", html=True), name="static")
+app.mount("/home", StaticFiles(directory="web_app", html=True), name="static")
 
 
 @app.post("/post")
@@ -44,31 +44,44 @@ async def generate_post(
     prompt: str | None = Form(None)
 ) -> dict:
     try:
-        src = get_src(url, file)[0]
+        sources = get_src(url, file)
 
-        content = await summarize_audio(src)
-
-        html_content = content_to_html(content)
-
-        response = {"html": html_content}
         if prompt is not None:
+            content = [await summarize_audio(src) for src in sources]
+
             response = await prompt_content(content, prompt)
 
             prompt = f"return only html to acuratelly represent a blog post on the following text:\n{response}"
             response = await prompt_content(content, prompt)
 
-            response = extract_html(response)
-        return response
+            html_content = extract_html(response)
+        else:
+            src = sources[0]
+            content = await summarize_audio(src)
+
+            html_content = content_to_html(content)
+
+        return {"html": html_content}
     except Exception as e:
         logger.error(e)
+        raise e
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/post/convertHTML")
-async def convert_HTML(content: str, dest_type: str) -> FileResponse:
+async def convert_HTML(
+        content: str = Form(...),
+        dest_type: str = Form(...)
+) -> dict:
+    async def result_generator():
+        converted_result = HTML_to_format(content, dest_type, ".platogram-cache")
+        with open(converted_result, "rb") as fd:
+            while True:
+                data = fd.read(1024)
+                if not data:
+                    break
+                yield data
     try:
-        with TemporaryDirectory as temp_dir:
-            converted_result = HTML_to_format(content, dest_type, str(temp_dir))
-            return FileResponse(converted_result)
+        return StreamingResponse(result_generator())
     except Exception as e:
         logger.error(e)
         raise HTTPException(status_code=500, detail=str(e))

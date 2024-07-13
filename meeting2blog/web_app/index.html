@@ -27,15 +27,14 @@
         </div>
         <button id="downloadButton" onClick="toggleChildren('downloads', [])" class="hidden">Download HTML</button>
         <div id="downloads" class="source">
-            <button id="asMarkdown" class="hidden button">Markdown</button>
-            <button id="asHTML" class="hidden button">HTML</button>
-            <button id="asPDF" class="hidden button">PDF</button>
-            <button id="asWord" class="hidden button">Word</button>
+            <button id="asMarkdown" class="hidden button" onclick="downloadContent('md')">Markdown</button>
+            <button id="asHTML" class="hidden button" onclick="downloadContent('html')">HTML</button>
+            <button id="asPDF" class="hidden button" onclick="downloadContent('pdf')">PDF</button>
+            <button id="asWord" class="hidden button" onclick="downloadContent('docx')">Word</button>
         </div>
     </div>
 
     <script src="script.js"></script>
-    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
 </body>
 </html>
 

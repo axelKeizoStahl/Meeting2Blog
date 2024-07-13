@@ -48,15 +48,8 @@ function generatePost() {
     .then(response => response.json())
     .then(data => {
         toggleElement("loading");
-        console.log(data)
-        console.log(data.markdown)
-        document.getElementById('render-result').mdContent = data.markdown;
-
         toggleElement("downloadButton");
-        const downloadButton = document.getElementById('downloadButton');
-        downloadButton.addEventListener('click', function() {
-            downloadHTML(data.markdown);
-        });
+        document.getElementById('render-result').innerHTML = data.html;
     })
     .catch(error => {
         console.error('Error:', error);
@@ -65,25 +58,42 @@ function generatePost() {
     });
 }
 
-function convertMD(content, destType) {
-    switch (destType) {
-        case "MD":
-        case "HTML":
-        case "PDF":
-        case "WORD":
-    }
-   return content;
-}
-function downloadHTML() {
-    const blob = new Blob([markdownContent], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
 
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+async function downloadContent(destType) {
+    try {
+        const formData = new FormData();
+        const htmlContent = document.getElementById("render-result").innerHTML;
+        formData.append('content', htmlContent);
+        formData.append('dest_type', destType);
+        const response = await fetch('/post/convertHTML', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+
+        const contentDisposition = response.headers.get('Content-Disposition');
+        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+        let filename = 'download';
+        if (contentDisposition && filenameRegex.test(contentDisposition)) {
+            filename = decodeURIComponent(contentDisposition.match(filenameRegex)[1].replace(/['"]/g, ''));
+        } else {
+            filename += `.${destType}`;
+        }
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = `blog.${destType}`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Error downloading content:', error);
+    }
 }
 

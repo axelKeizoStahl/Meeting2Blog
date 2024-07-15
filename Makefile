@@ -1,2 +1,2 @@
 run:
-		uvicorn meeting2blog.api.serve:app --reload --port 8000
+		uvicorn meeting2blog.serve:app --reload --port 8000

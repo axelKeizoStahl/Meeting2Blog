@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse, StreamingResponse
 import logging
-from response import content_to_html, extract_html, HTML_to_format
-from synthesize import summarize_audio, prompt_content
+from .response import content_to_html, extract_html, HTML_to_format
+from .synthesize import summarize_audio, prompt_content
 from tarfile import TarFile
 from tempfile import TemporaryDirectory, SpooledTemporaryFile
 from typing import List
@@ -34,7 +34,7 @@ async def redirect_to_home():
     return RedirectResponse(url="/home")
 
 
-app.mount("/home", StaticFiles(directory="web_app", html=True), name="static")
+app.mount("/home", StaticFiles(directory="public", html=True), name="static")
 
 
 @app.post("/post")

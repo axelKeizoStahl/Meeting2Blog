@@ -4,18 +4,25 @@
 This is an HTTP server that creates a blog post given an audio file, or a query based on an audio file.
 These HTML blog posts can then be converted to MD, PDF, and DOCX through the same HTTP server.
 
-##Installation
+## Installation
 First, clone this repository onto your local machine:
+
     `git clone git@github.com:axelKeizoStahl/Meeting2Blog.git`
+
     `cd Meeting2Blog`
 Next, install the dependencies:
+
     `python -m venv venv`
+
     `source venv/bin/activate`
+
     `poetry install`
 
-##API Keys
+
+## API Keys
 This project depends on Platogram, which needs access to Anthropic, OpenAI, and AssemblyAI keys.
 Create `.env` in your local machine and write in your keys.
+
     ```
     touch .env
     echo "ANTHROPIC_API_KEY=your_api_key" >> .env
@@ -23,12 +30,15 @@ Create `.env` in your local machine and write in your keys.
     echo "OPENAI_API_KEY=your_api_key" >> .env
     ```
 
-##Running the server
+
+## Running the server
 The first step is to export your api keys:
+
     `source bin/env.sh`
+
 Next, simply `make run` to have the server running on localhost.
 
-##Utilization
+## Utilization
 To see a minimal frontend, just open localhost:8000 on you local machine.
 There are two API endpoints:
     1. /page

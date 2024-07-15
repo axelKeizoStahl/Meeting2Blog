@@ -45,7 +45,7 @@ There are two API endpoints:
     2. /page/convertHTML
 
 To create a HTML blog post, use /page.
-    /page takes a src, either "url" or a file.
+    /page takes a src, either "url" or a tar file.
     /page also takes "query".
 These are all using FormData. These are all optional, however, a source is needed.
 

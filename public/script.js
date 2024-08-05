@@ -97,3 +97,8 @@ async function downloadContent(destType) {
     }
 }
 
+document.getElementById('fileUpload').addEventListener('change', function(event) {
+            var fileInput = event.target;
+            var fileName = fileInput.files.length > 0 ? Array.from(fileInput.files).map(file => file.name).join(', ') : 'No Files Selected.';
+            document.getElementById('listFiles').textContent = fileName;
+        });

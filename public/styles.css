@@ -18,7 +18,12 @@ body {
 /* Heading styles */
 h1 {
     text-align: center;
-    color: #333;
+    color: White;
+    background: #007bff;
+    border-radius: 8px 8px 0 0;
+    margin: -20px;
+    margin-bottom: 30px;
+    padding: 40px 20px;
 }
 
 /* Form and input styles */
@@ -26,17 +31,24 @@ form {
     margin-bottom: 20px;
 }
 
-label {
-    display: block;
-}
 
 /* Source selection styles */
 .source {
     display: flex;
+    flex-direction: column;
     gap: 30px;
     margin-bottom: 20px;
     margin-top: 20px;
     justify-content: center;
+}
+.source div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    div {
+        min-width: 184px;
+    }
 }
 
 .button {
@@ -46,15 +58,15 @@ label {
 
 button {
     width: 100%;
-    padding: 10px;
     box-sizing: border-box;
+    padding: 8px 12px;
+    border-radius: 30px;
 }
 
 /* Button styles */
 .button,
 button {
     font-size: 16px;
-    padding: 8px 12px;
     text-align: center;
     background-color: #007bff;
     color: #fff;
@@ -64,6 +76,11 @@ button {
 .button:hover,
 button:hover {
     background-color: #0056b3;
+}
+
+label {
+    display: block;
+    padding: 9px 0;
 }
 
 /* Hidden element style */

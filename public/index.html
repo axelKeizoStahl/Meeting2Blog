@@ -9,14 +9,20 @@
 <body>
     <div class="container">
         <h1>Audio to Blog Converter</h1>
-            <button id="choose-source" onclick="toggleChildren('source', ['prompt', 'urlInput'])">Sources</button>
             <div class="source" id="source">
-                <input type="file" id="fileUpload" hidden />
-                <label id="submitFile" class="hidden button" for="fileUpload">File</label>
-                <button id="submitURL" class="hidden button" onclick="toggleChildren('source', ['submitFile', 'submitURL', 'submitPrompt', 'prompt'])">URL</button>
-                <input type="text" value="" id="urlInput" name="urlInput" class="hidden">
-                <button id="submitPrompt" class="hidden button" onclick="toggleChildren('source', ['submitFile', 'submitURL', 'submitPrompt', 'urlInput'])">Prompt</button>
-                <input type="text" value="" id="prompt" name="prompt" class="hidden">
+                <div>
+                    <input type="file" id="fileUpload" hidden multiple/>
+                    <label id="submitFile" class="button" for="fileUpload">File</label>
+                    <div id="listFiles">No Files Selected.</div>
+                </div>
+                <div>
+                    <button id="submitURL" class="button">URL</button>
+                    <input type="text" value="" id="urlInput" name="urlInput" placeholder="link to audio/video content">
+                </div>
+                <div>
+                    <button id="submitPrompt" class="button">Prompt</button>
+                    <input type="text" value="" id="prompt" name="prompt" placeholder="optional query to your content">
+                </div>
             </div>
             <br>
             <button type="submit" onclick="generatePost()">Generate Blog Post</button>

@@ -7,34 +7,34 @@ These HTML blog posts can then be converted to MD, PDF, and DOCX through the sam
 ## Installation
 First, clone this repository onto your local machine:
 
-    `git clone git@github.com:axelKeizoStahl/Meeting2Blog.git`
+    git clone git@github.com:axelKeizoStahl/Meeting2Blog.git
 
-    `cd Meeting2Blog`
+    cd Meeting2Blog
 Next, install the dependencies:
 
-    `python -m venv venv`
+    python -m venv venv
 
-    `source venv/bin/activate`
+    source venv/bin/activate
 
-    `poetry install`
+    poetry install
 
 
 ## API Keys
 This project depends on Platogram, which needs access to Anthropic, OpenAI, and AssemblyAI keys.
 Create `.env` in your local machine and write in your keys.
 
-    ```
+    
     touch .env
     echo "ANTHROPIC_API_KEY=your_api_key" >> .env
     echo "ASSEMBLYAI_API_KEY=your_api_key" >> .env
     echo "OPENAI_API_KEY=your_api_key" >> .env
-    ```
+    
 
 
 ## Running the server
 The first step is to export your api keys:
 
-    `source bin/env.sh`
+    source bin/env.sh
 
 Next, simply `make run` to have the server running on localhost.
 
@@ -45,7 +45,7 @@ There are two API endpoints:
     2. /page/convertHTML
 
 To create a HTML blog post, use /page.
-    /page takes a src, either "url" or a file.
+    /page takes a src, either "url" or a tar file.
     /page also takes "query".
 These are all using FormData. These are all optional, however, a source is needed.
 

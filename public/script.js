@@ -21,7 +21,7 @@ function toggleChildren(parentId, excludes) {
 function generatePost() {
     const promptValue = document.getElementById("prompt").value.trim();
     const urlValue = document.getElementById('urlInput').value.trim();
-    const file = document.getElementById('fileUpload').files[0];
+    const files= document.getElementById('fileUpload').files;
 
     let uploadType = "post";
     if (promptValue !== "") {
@@ -32,30 +32,37 @@ function generatePost() {
     if (urlValue !== "") {
         formData.append('url', urlValue);
     }
-    if (file) {
-        formData.append('file', file);
+    if (files.length > 0) {
+        for (let i = 0; i < files.length; i++) {
+            formData.append('file', files[i]);
+        }
     }
     if (uploadType === "query") {
         formData.append('prompt', promptValue);
     }
 
-    toggleElement("loading");
+    if (formData.has('url') || formData.has('file')) {
+        toggleElement("loading");
 
-    fetch(`http://localhost:8000/${uploadType}`, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        toggleElement("loading");
-        toggleElement("downloadButton");
-        document.getElementById('render-result').innerHTML = data.html;
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        toggleElement("loading");
-        alert('An error occurred. Please try again.');
-    });
+        fetch(`http://localhost:8000/${uploadType}`, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            toggleElement("loading");
+            toggleElement("downloadButton");
+            toggleElement("render-result");
+            document.getElementById('render-result').innerHTML = data.html;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            toggleElement("loading");
+            alert('An error occurred. Please try again.');
+        });
+    } else {
+        alert('It seems you have not uploaded any sources, please do so to generate your post.');
+    }
 }
 
 

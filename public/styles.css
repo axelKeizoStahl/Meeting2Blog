@@ -20,8 +20,8 @@ h1 {
     text-align: center;
     color: White;
     background: #007bff;
-    border-radius: 8px 8px 0 0;
-    margin: -20px;
+    border-radius: 10px;
+    margin: -10px;
     margin-bottom: 30px;
     padding: 40px 20px;
 }
@@ -48,6 +48,7 @@ form {
     gap: 30px;
     div {
         min-width: 184px;
+        font-size: 12px;
     }
 }
 

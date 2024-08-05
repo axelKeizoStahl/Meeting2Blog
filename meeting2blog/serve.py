@@ -14,14 +14,12 @@ logger = logging.getLogger(__name__)
 
 
 def get_src(
-    urls: str | None = Form(None), files: UploadFile | None = File(None)
+    urls: str | None = Form(None), files: List[UploadFile] | None = File(None)
 ) -> List[str | SpooledTemporaryFile]:
     sources = []
 
     if files is not None:
-        file_tar = TarFile(fileobj=files.file, mode="r")
-        file_members = file_tar.getmembers()
-        sources = [file_tar.extractfile(member) for member in file_members]
+        sources = [file for file in files]
     if urls is not None:
         sources += [url for url in urls.split(",")]
     if sources == []:
@@ -40,7 +38,7 @@ app.mount("/home", StaticFiles(directory="public", html=True), name="static")
 @app.post("/post")
 async def generate_post(
     url: str | None = Form(None),
-    file: UploadFile | None = File(None),
+    file: List(UploadFile) | None = File(None),
     prompt: str | None = Form(None)
 ) -> dict:
     try:

@@ -11,7 +11,7 @@ body, html {
     display: flex;
     margin: 0;
     position: absolute;
-    right: 20px;
+    right: 10px;
     top: 10px;
 }
 
@@ -21,8 +21,8 @@ body, html {
     background-color: inherit;
     background-size: contain;
     cursor: pointer;
-    width: 20px;
-    height: 24px;
+    width: 15px;
+    height: 18px;
     display: block;
     margin: 0;
     border: 0;
@@ -39,31 +39,35 @@ body {
     #1c92d2,#f2fcfe
     );
     display: flex;
-    align-items: center;
-    justify-items: center;
     height: 100vh;
 }
 
 /* Container styles */
 .container {
-    width: 600px;
-    margin: auto;
-    background-color: #fff;
+    width: 500px;
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 10vh;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-    flex: 0 1 auto;
+    background-image: url("./media/double-bubble-outline.png");
+    height: fit-content;
 }
 
 /* Heading styles */
 .title {
     text-align: center;
     color: White;
-    background: #007bff;
+    background: #8b62b6;
+    background: linear-gradient(
+    to right,
+    #6e7acc,#4b8fda
+    );
     border-radius: 10px;
-    margin: -10px;
+    margin: -15px;
     margin-bottom: 50px;
-    padding: 40px 20px;
+    padding: 43px 23px;
     position: relative;
     h1 {
         margin: 0;
@@ -77,7 +81,16 @@ form {
     margin-bottom: 20px;
 }
 input {
-    height: 20px;
+    height: 15px;
+    padding: 5px;
+    padding-left: 25px;
+    padding-right: 0;
+    border-radius: 3px 30px;
+
+}
+
+#submitFile {
+    margin-right: 20px;
 }
 
 /* Source selection styles */
@@ -106,6 +119,9 @@ input {
     div {
         min-width: 184px;
         font-size: 12px;
+    }
+    button, .button {
+        background-color: #6e7acc;
     }
 }
 
@@ -161,7 +177,7 @@ label {
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
 }
 #result {
-    margin: -10px;
+    margin: -16px;
     margin-top: 30px;
     button {
         max-width: 400px;
@@ -173,6 +189,11 @@ label {
         border-radius: 30px;
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
         cursor: pointer;
+        background: linear-gradient(
+            to right,
+            #6e7acc,#8b62b6
+            );
+
     }
 }
 

@@ -34,7 +34,7 @@ function generatePost() {
             formData.append('file', files[i]);
         }
     } else {
-        formData.append('file', {});
+        formData.append('file', '');
     }
     if (promptValue !== "") {
         formData.append('prompt', promptValue);

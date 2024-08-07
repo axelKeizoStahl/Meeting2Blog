@@ -45,9 +45,9 @@ There are two API endpoints:
     2. /page/convertHTML
 
 To create a HTML blog post, use /page.
-    /page takes a src, either "url" or a tar file.
+    /page takes a src, either comma-separated url's under "url" and/or a list of files under "file".
     /page also takes "query".
-These are all using FormData. These are all optional, however, a source is needed.
+These are all using FormData. While these are all optional, at least one source is needed.
 
 To change your page from HTML to markdown, pdf, or word document, use /post/convertHTML.
     "dest_type" is a str with the file extension for the destination type.

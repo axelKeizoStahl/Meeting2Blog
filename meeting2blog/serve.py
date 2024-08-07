@@ -4,13 +4,28 @@ from fastapi.responses import RedirectResponse, StreamingResponse
 import logging
 from .response import content_to_html, extract_html, HTML_to_format
 from .synthesize import summarize_audio, prompt_content
-from tarfile import TarFile
-from tempfile import TemporaryDirectory, SpooledTemporaryFile
+from tempfile import SpooledTemporaryFile
 from typing import List
+from fastapi.middleware.cors import CORSMiddleware
 
+# https://fastapi.tiangolo.com/tutorial/cors/
+origins = [
+    "http://localhost",
+    "http://localhost:8000",
+    "http://127.0.0.1",
+    "http://127.0.0.1:8000"
+]
 
 app = FastAPI()
 logger = logging.getLogger(__name__)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def get_src(

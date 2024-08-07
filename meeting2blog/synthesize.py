@@ -1,10 +1,10 @@
+from fastapi import UploadFile
 from hashlib import sha256
 from pathlib import Path
 import platogram as plato
 from platogram.types import Content
 import os
-from tarfile import ExFileObject
-from tempfile import TemporaryDirectory, SpooledTemporaryFile
+from tempfile import TemporaryDirectory
 from typing import Literal
 from urllib.parse import urlparse
 
@@ -13,12 +13,13 @@ CACHE_DIR = Path("./.platogram-cache")
 # Handle cache rotation
 
 
-def make_file_name(src: str | SpooledTemporaryFile | ExFileObject) -> str:
+async def make_file_name(src: str | UploadFile) -> str:
     if not isinstance(src, str):
-        src = src.read()
+        hash = await src.read()
+        await src.seek(0)
     else:
-        src = src.encode()
-    hash = sha256(src).hexdigest()
+        hash = src.encode()
+    hash = sha256(hash).hexdigest()
     return hash
 
 
@@ -26,25 +27,25 @@ def is_uri(src: str) -> bool:
     try:
         result = urlparse(src)
         return all([result.scheme, result.netloc, result.path])
-    except:
+    except Exception as _:
         return False
 
 
 async def get_audio_url(
-    src: str | SpooledTemporaryFile | ExFileObject, temp_dir: str | None
+    src: str | UploadFile, temp_dir: str | None
 ) -> str:
     if isinstance(src, str) and is_uri(src):
         return src
     else:
-        dest_file = f"{temp_dir}/{sha256(src.read()).hexdigest()}"
-        src.seek(0)
+        dest_file = f"{temp_dir}/{await make_file_name(src)}"
+        await src.seek(0)
         with open(dest_file, "wb") as content:
-            content.write(src.read())
+            content.write(await src.read())
         return f"file://{os.path.abspath(dest_file)}"
 
 
 async def summarize_audio(
-    src: str | SpooledTemporaryFile,
+    src: str | UploadFile,
     anthropic_model: str = "claude-3-5-sonnet",
     assembly_ai_model: str = "best",
 ) -> Content:
@@ -57,7 +58,7 @@ async def summarize_audio(
 
     CACHE_DIR.mkdir(exist_ok=True)
 
-    cache_file = CACHE_DIR / f"{make_file_name(src)}.json"
+    cache_file = CACHE_DIR / f"{await make_file_name(src)}.json"
 
     if cache_file.exists():
         content = Content.model_validate_json(open(cache_file).read())

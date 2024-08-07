@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_src(
-    urls: str | None = Form(None), files: List[UploadFile] | None = File(None)
+    urls: str | None = Form(None), files: list[UploadFile] | None = File(...)
 ) -> List[str | SpooledTemporaryFile]:
     sources = []
 
@@ -38,7 +38,7 @@ app.mount("/home", StaticFiles(directory="public", html=True), name="static")
 @app.post("/post")
 async def generate_post(
     url: str | None = Form(None),
-    file: List[UploadFile] | None = File(None),
+    file: List[UploadFile] = List[File(None)],
     prompt: str | None = Form(None)
 ) -> dict:
     try:

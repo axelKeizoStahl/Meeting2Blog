@@ -30,7 +30,7 @@
             <div id="loading" class="hidden"></div>
             <div id="render-result" class="result-container hidden"></div>
         </div>
-        <button id="downloadButton" onClick="toggleElement('downloads')" class="hidden">Download HTML</button>
+        <button id="downloadButton" onClick="toggleElement('downloads'); toggleElement('downloadButton')" class="hidden">Download HTML</button>
         <div id="downloads" class="source hidden">
             <button id="asMarkdown" class="button" onclick="downloadContent('md')">Markdown</button>
             <button id="asHTML" class="button" onclick="downloadContent('html')">HTML</button>

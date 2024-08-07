@@ -19,16 +19,13 @@ function toggleChildren(parentId, excludes) {
 }
 
 function generatePost() {
+    toggleElement('downloadButton');
+
     const promptValue = document.getElementById("prompt").value.trim();
     const urlValue = document.getElementById('urlInput').value.trim();
-    const files= document.getElementById('fileUpload').files;
-
-    let uploadType = "post";
-    if (promptValue !== "") {
-        uploadType = "query";
-    }
-
+    const files = document.getElementById('fileUpload').files;
     const formData = new FormData();
+
     if (urlValue !== "") {
         formData.append('url', urlValue);
     }
@@ -36,15 +33,17 @@ function generatePost() {
         for (let i = 0; i < files.length; i++) {
             formData.append('file', files[i]);
         }
+    } else {
+        formData.append('file', {});
     }
-    if (uploadType === "query") {
+    if (promptValue !== "") {
         formData.append('prompt', promptValue);
     }
 
     if (formData.has('url') || formData.has('file')) {
         toggleElement("loading");
 
-        fetch(`http://localhost:8000/${uploadType}`, {
+        fetch(`http://localhost:8000/post`, {
             method: 'POST',
             body: formData
         })
@@ -53,6 +52,8 @@ function generatePost() {
             toggleElement("loading");
             toggleElement("downloadButton");
             toggleElement("render-result");
+            const elm = document.getElementById('render-result');
+            elm.classList.remove("hidden");
             document.getElementById('render-result').innerHTML = data.html;
         })
         .catch(error => {

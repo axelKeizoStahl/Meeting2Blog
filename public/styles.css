@@ -1,36 +1,84 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.buttonContainer {
+    align-items: center;
+    gap: 16px;
+    width: fit-content;
+    display: flex;
+    margin: 0;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+.help {
+    background-image: url("./media/help.40b22723.svg");
+    background-repeat: no-repeat;
+    background-color: inherit;
+    background-size: contain;
+    cursor: pointer;
+    width: 20px;
+    height: 24px;
+    display: block;
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
 /* Reset and base styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     padding: 20px;
+    background: #1c92d2;
+    background: linear-gradient(
+    to right,
+    #1c92d2,#f2fcfe
+    );
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    height: 100vh;
 }
 
 /* Container styles */
 .container {
-    max-width: 600px;
-    margin: 0 auto;
+    width: 600px;
+    margin: auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    flex: 0 1 auto;
 }
 
 /* Heading styles */
-h1 {
+.title {
     text-align: center;
     color: White;
     background: #007bff;
     border-radius: 10px;
     margin: -10px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     padding: 40px 20px;
+    position: relative;
+    h1 {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
 }
 
 /* Form and input styles */
 form {
     margin-bottom: 20px;
 }
-
+input {
+    height: 20px;
+}
 
 /* Source selection styles */
 .source {
@@ -61,31 +109,33 @@ form {
     }
 }
 
-.button {
-    width: 100px;
-    border-radius: 30px;
-}
-
-button {
-    width: 100%;
+button:not(.help) {
     box-sizing: border-box;
     padding: 8px 12px;
-    border-radius: 30px;
 }
+
+.button {
+    width: 100px;
+    border-radius: 30px 3px;
+}
+
 
 /* Button styles */
 .button,
-button {
+button:not(.help) {
     font-size: 16px;
     text-align: center;
     background-color: #007bff;
     color: #fff;
     border: none;
+    transition: box-shadow 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .button:hover,
-button:hover {
+button:not(.help):hover {
     background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 label {
@@ -105,6 +155,25 @@ label {
     padding: 10px;
     min-height: 200px;
     overflow-y: auto;
+    background: white;
+    color: black;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+#result {
+    margin: -10px;
+    margin-top: 30px;
+    button {
+        max-width: 400px;
+        font-weight: 700;
+        font-size: 20px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 12px;
+        border-radius: 30px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+    }
 }
 
 /* Loading animation */
@@ -116,6 +185,7 @@ label {
     border-radius: 100%;
     margin: 30px auto;
     animation: spin 1s infinite linear;
+    cursor: progress;
 }
 
 @keyframes spin {

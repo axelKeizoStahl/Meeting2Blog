@@ -8,7 +8,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>Audio to Blog</h1>
+        <div class="title">
+            <h1>Audio to Blog</h1>
+            <div class="buttonContainer">
+                <button id="helpButton" class="help"></button>
+            </div>
+        </div>
         <div class="source" id="source">
             <div>
                 <input type="file" id="fileUpload" hidden multiple/>
@@ -25,16 +30,16 @@
             </div>
         </div>
         <br>
-        <button type="submit" onclick="generatePost()">Generate Blog Post</button>
-        <div id="result">
+        <div id="result" class="title" >
+            <button type="submit" onclick="generatePost()">Generate</button>
             <div id="loading" class="hidden"></div>
             <div id="render-result" class="result-container hidden"></div>
-            <button id="downloadButton" onClick="toggleElement('downloads'); toggleElement('downloadButton')" class="hidden">Download HTML</button>
+            <button id="downloadButton" onClick="toggleElement('downloads'); toggleElement('downloadButton')" class="hidden">Download</button>
             <div id="downloads" class="source hidden">
-                <button id="asMarkdown" class="button" onclick="downloadContent('md')">Markdown</button>
+                <button id="asMarkdown" class="button" onclick="downloadContent('md')">MD</button>
                 <button id="asHTML" class="button" onclick="downloadContent('html')">HTML</button>
                 <button id="asPDF" class="button" onclick="downloadContent('pdf')">PDF</button>
-                <button id="asWord" class="button" onclick="downloadContent('docx')">Word</button>
+                <button id="asWord" class="button" onclick="downloadContent('docx')">DOCX</button>
             </div>
         </div>
     </div>

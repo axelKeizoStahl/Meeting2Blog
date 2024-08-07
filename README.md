@@ -7,7 +7,7 @@ These HTML blog posts can then be converted to MD, PDF, and DOCX through the sam
 ## Installation
 First, clone this repository onto your local machine:
 
-    git clone git@github.com:axelKeizoStahl/Meeting2Blog.git
+    git clone git@github.com:axelKeizoStahl/Meeting2Blog
 
     cd Meeting2Blog
 Next, install the dependencies:

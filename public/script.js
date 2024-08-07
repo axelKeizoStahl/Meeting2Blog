@@ -19,7 +19,8 @@ function toggleChildren(parentId, excludes) {
 }
 
 function generatePost() {
-    toggleElement('downloadButton');
+    const elm = document.getElementById('downloadButton');
+    elm.classList.add("hidden");
 
     const promptValue = document.getElementById("prompt").value.trim();
     const urlValue = document.getElementById('urlInput').value.trim();
@@ -33,8 +34,6 @@ function generatePost() {
         for (let i = 0; i < files.length; i++) {
             formData.append('file', files[i]);
         }
-    } else {
-        formData.append('file', '');
     }
     if (promptValue !== "") {
         formData.append('prompt', promptValue);

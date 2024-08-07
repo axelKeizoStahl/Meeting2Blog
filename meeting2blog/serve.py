@@ -34,10 +34,10 @@ def get_src(
     sources = []
 
     if files is not None:
-        sources = [file for file in files]
+        sources = [file for file in files if not file.filename == "tmp.txt"]
     if urls is not None:
         sources += [url for url in urls.split(",")]
-    if sources == []:
+    if not sources:
         raise HTTPException(status_code=400, detail="No URL or file found in request")
     return sources
 
@@ -53,12 +53,10 @@ app.mount("/home", StaticFiles(directory="public", html=True), name="static")
 @app.post("/post")
 async def generate_post(
     url: str | None = Form(None),
-    file: List[UploadFile] = List[File(None)],
+    file: List[UploadFile | str] = File(None), # Super weird workaround for bug in fastapi (https://github.com/fastapi/fastapi/discussions/10280)
     prompt: str | None = Form(None)
 ) -> dict:
     try:
-        if isinstance(file, str):
-            file = None
         sources = get_src(url, file)
 
         if prompt is not None:

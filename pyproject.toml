@@ -8,7 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 platogram = {git = "https://github.com/code-anyway/platogram.git"}
-fastapi = "^0.111.0"
+fastapi = "0.111.0"
 pypandoc-binary = "^1.13"
 fpdf2 = "^2.7.9"
 

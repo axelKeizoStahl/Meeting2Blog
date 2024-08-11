@@ -7,31 +7,18 @@ These HTML blog posts can then be converted to MD, PDF, and DOCX through the sam
 ## Installation
 First, clone this repository onto your local machine:
 
-    git clone git@github.com:axelKeizoStahl/Meeting2Blog.git
+    git clone https://github.com/axelKeizoStahl/Meeting2Blog.git
 
     cd Meeting2Blog
 Next, install the dependencies:
 
-    python -m venv venv
-
-    source venv/bin/activate
-
     poetry install
 
+Then, enter the poetry venv:
 
-## API Keys
-This project depends on Platogram, which needs access to Anthropic, OpenAI, and AssemblyAI keys.
-Create `.env` in your local machine and write in your keys.
+    poetry shell
 
-    
-    touch .env
-    echo "ANTHROPIC_API_KEY=your_api_key" >> .env
-    echo "ASSEMBLYAI_API_KEY=your_api_key" >> .env
-    echo "OPENAI_API_KEY=your_api_key" >> .env
-    
-
-
-## Running the server
+## Running the Server
 The first step is to export your api keys:
 
     source bin/env.sh

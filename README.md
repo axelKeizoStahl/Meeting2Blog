@@ -15,9 +15,24 @@ Next, install the dependencies:
     poetry install
 
 Then, enter the poetry venv:
+<<<<<<< HEAD
+=======
+
+    poetry shell
+>>>>>>> 31274320e6a915af497114e7e610e5f6dcc83203
 
     poetry shell
 
+<<<<<<< HEAD
+=======
+    
+    touch .env
+    echo "ANTHROPIC_API_KEY=your_api_key" >> .env
+    echo "ASSEMBLYAI_API_KEY=your_api_key" >> .env
+    echo "OPENAI_API_KEY=your_api_key" >> .env
+    
+
+>>>>>>> 31274320e6a915af497114e7e610e5f6dcc83203
 ## Running the Server
 The first step is to export your api keys:
 

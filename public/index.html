@@ -25,8 +25,11 @@
                 <input type="text" value="" id="urlInput" name="urlInput" placeholder="source url">
             </div>
             <div>
-                <button id="submitPrompt" class="button">Prompt</button>
-                <input type="text" value="" id="prompt" name="prompt" placeholder="optional query">
+                <button id="submitKeys" class="button">Keys</button>
+                <div class="keys">
+                    <input type="password" value="" id="anthropic-key" name="anthropic-key" placeholder="anthropic api key">
+                    <input type="password" value="" id="assemblyai-key" name="assemblyai-key" placeholder="assembly ai api key">
+                </div>
             </div>
         </div>
         <br>
@@ -34,12 +37,11 @@
             <button type="submit" onclick="generatePost()">Generate</button>
             <div id="loading" class="hidden"></div>
             <div id="render-result" class="result-container hidden"></div>
-            <button id="downloadButton" onClick="toggleElement('downloads'); toggleElement('downloadButton')" class="hidden">Download</button>
             <div id="downloads" class="source hidden">
-                <button id="asMarkdown" class="button" onclick="downloadContent('md')">MD</button>
-                <button id="asHTML" class="button" onclick="downloadContent('html')">HTML</button>
-                <button id="asPDF" class="button" onclick="downloadContent('pdf')">PDF</button>
-                <button id="asWord" class="button" onclick="downloadContent('docx')">DOCX</button>
+                <button id="asMarkdown" class="button" onclick="downloadContent('md')">.MD</button>
+                <button id="asHTML" class="button" onclick="downloadContent('html')">.HTML</button>
+                <button id="asPDF" class="button" onclick="downloadContent('pdf')">.PDF</button>
+                <button id="asWord" class="button" onclick="downloadContent('docx')">.DOCX</button>
             </div>
         </div>
     </div>

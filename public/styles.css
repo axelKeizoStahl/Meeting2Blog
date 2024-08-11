@@ -218,3 +218,7 @@ label {
     }
 }
 
+.keys {
+    flex-direction: column;
+    margin-bottom: -58px;
+}

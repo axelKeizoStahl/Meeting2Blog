@@ -53,8 +53,10 @@ app.mount("/home", StaticFiles(directory="public", html=True), name="static")
 @app.post("/post")
 async def generate_post(
     url: str | None = Form(None),
-    file: List[UploadFile | str] = File(None), # Super weird workaround for bug in fastapi (https://github.com/fastapi/fastapi/discussions/10280)
-    prompt: str | None = Form(None)
+    file: List[UploadFile | str] = File(None), # Weird workaround for bug in fastapi (https://github.com/fastapi/fastapi/discussions/10280)
+    prompt: str | None = Form(None),
+    assemblyai: str = Form(...),
+    anthropic: str = Form(...)
 ) -> dict:
     try:
         sources = get_src(url, file)
@@ -70,7 +72,7 @@ async def generate_post(
             html_content = extract_html(response)
         else:
             src = sources[0]
-            content = await summarize_audio(src)
+            content = await summarize_audio(src, assemblyai, anthropic)
 
             html_content = content_to_html(content)
 

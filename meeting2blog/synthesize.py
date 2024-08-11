@@ -46,14 +46,16 @@ async def get_audio_url(
 
 async def summarize_audio(
     src: str | UploadFile,
+    assemblyai: str,
+    anthropic: str,
     anthropic_model: str = "claude-3-5-sonnet",
-    assembly_ai_model: str = "best",
+    assembly_ai_model: str = "best"
 ) -> Content:
     llm = plato.llm.get_model(
-        f"anthropic/{anthropic_model}", os.environ["ANTHROPIC_API_KEY"]
+        f"anthropic/{anthropic_model}", anthropic
     )
     asr = plato.asr.get_model(
-        f"assembly-ai/{assembly_ai_model}", os.environ["ASSEMBLYAI_API_KEY"]
+        f"assembly-ai/{assembly_ai_model}", assemblyai
     )
 
     CACHE_DIR.mkdir(exist_ok=True)
@@ -76,11 +78,12 @@ async def summarize_audio(
 async def prompt_content(
     content: list[Content],
     prompt: str,
+    anthropic: str,
     anthropic_model: str = "claude-3-5-sonnet",
     context_size: Literal["small", "medium", "large"] = "small",
 ) -> str:
     llm = plato.llm.get_model(
-        f"anthropic/{anthropic_model}", os.environ["ANTHROPIC_API_KEY"]
+        f"anthropic/{anthropic_model}", anthropic
     )
 
     response = llm.prompt(

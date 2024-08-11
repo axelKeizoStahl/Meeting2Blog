@@ -19,12 +19,13 @@ function toggleChildren(parentId, excludes) {
 }
 
 function generatePost() {
-    const elm = document.getElementById('downloadButton');
+    const elm = document.getElementById('downloads');
     elm.classList.add("hidden");
 
-    const promptValue = document.getElementById("prompt").value.trim();
     const urlValue = document.getElementById('urlInput').value.trim();
     const files = document.getElementById('fileUpload').files;
+    const anthropicKey = document.getElementById('anthropic-key').value.trim();
+    const assemblyaiKey = document.getElementById('assemblyai-key').value.trim();
     const formData = new FormData();
 
     if (urlValue !== "") {
@@ -35,10 +36,13 @@ function generatePost() {
             formData.append('file', files[i]);
         }
     }
-    if (promptValue !== "") {
-        formData.append('prompt', promptValue);
+    if (anthropicKey === "" || assemblyaiKey === "") {
+        alert('Please provide an assemblyAI api key and an anthropic api key.');
+        return;
+    } else {
+        formData.append('anthropic', anthropicKey);
+        formData.append('assemblyai', assemblyaiKey);
     }
-
     if (formData.has('url') || formData.has('file')) {
         toggleElement("loading");
 
@@ -49,7 +53,7 @@ function generatePost() {
         .then(response => response.json())
         .then(data => {
             toggleElement("loading");
-            toggleElement("downloadButton");
+            toggleElement("downloads");
             toggleElement("render-result");
             const elm = document.getElementById('render-result');
             elm.classList.remove("hidden");
